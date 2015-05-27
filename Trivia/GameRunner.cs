@@ -26,20 +26,17 @@ namespace Trivia
 
         private static void Run(Game game, Random random)
         {
-            Game aGame = game;
-            Random rand = random;
-
             do
             {
-                aGame.roll(rand.Next(5) + 1);
+                game.roll(random.Next(5) + 1);
 
-                if (rand.Next(9) == 7)
+                if (random.Next(9) == 7)
                 {
-                    notAWinner = aGame.wrongAnswer();
+                    notAWinner = game.wrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.wasCorrectlyAnswered();
+                    notAWinner = game.wasCorrectlyAnswered();
                 }
             } while (notAWinner);
         }
