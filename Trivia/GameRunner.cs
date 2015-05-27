@@ -14,10 +14,10 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            Run(new Game());
+            Run(new Game(), new Random());
         }
 
-        private static void Run(Game game)
+        private static void Run(Game game, Random random)
         {
             Game aGame = game;
 
@@ -25,7 +25,7 @@ namespace Trivia
             aGame.add("Pat");
             aGame.add("Sue");
 
-            Random rand = new Random();
+            Random rand = random;
 
             do
             {
