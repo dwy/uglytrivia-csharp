@@ -14,12 +14,12 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            Run();
+            Run(new Game());
         }
 
-        private static void Run()
+        private static void Run(Game game)
         {
-            Game aGame = new Game();
+            Game aGame = game;
 
             aGame.add("Chet");
             aGame.add("Pat");
