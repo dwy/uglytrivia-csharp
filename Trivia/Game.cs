@@ -64,7 +64,7 @@ namespace UglyTrivia
 
         private void Print(string message)
         {
-            Console.WriteLine(message);
+            _out.WriteLine(message);
         }
 
         public int howManyPlayers()

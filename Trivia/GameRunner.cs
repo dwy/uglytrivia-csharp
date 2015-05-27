@@ -22,6 +22,7 @@ namespace Trivia
             var random = new Random();
 
             Run(game, random);
+            Console.ReadLine();
         }
 
         private static void Run(Game game, Random random)
