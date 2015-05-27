@@ -14,7 +14,7 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            var game = new Game();
+            var game = new Game(Console.Out);
             game.add("Chet");
             game.add("Pat");
             game.add("Sue");

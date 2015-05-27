@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -24,8 +25,12 @@ namespace UglyTrivia
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
 
-        public Game()
+        private TextWriter _out;
+
+        public Game(TextWriter @out)
         {
+            _out = @out;
+
             for (int i = 0; i < 50; i++)
             {
                 popQuestions.AddLast("Pop Question " + i);
