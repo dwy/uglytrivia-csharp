@@ -25,7 +25,7 @@ namespace Trivia
             Console.ReadLine();
         }
 
-        private static void Run(Game game, Random random)
+        public static void Run(Game game, Random random)
         {
             do
             {
