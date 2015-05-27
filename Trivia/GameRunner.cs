@@ -19,7 +19,9 @@ namespace Trivia
             game.add("Pat");
             game.add("Sue");
 
-            Run(game, new Random());
+            var random = new Random();
+
+            Run(game, random);
         }
 
         private static void Run(Game game, Random random)
