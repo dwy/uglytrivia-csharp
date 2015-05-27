@@ -47,17 +47,19 @@ namespace UglyTrivia
 
         public bool add(String playerName)
         {
-
-
             players.Add(playerName);
             places[howManyPlayers()] = 0;
             purses[howManyPlayers()] = 0;
             inPenaltyBox[howManyPlayers()] = false;
 
-            string message = playerName + " was added";
-            Console.WriteLine(message);
+            Print(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
+        }
+
+        private void Print(string message)
+        {
+            Console.WriteLine(message);
         }
 
         public int howManyPlayers()
