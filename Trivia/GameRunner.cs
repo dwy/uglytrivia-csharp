@@ -14,17 +14,17 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            Run(new Game(), new Random());
+            var game = new Game();
+            game.add("Chet");
+            game.add("Pat");
+            game.add("Sue");
+
+            Run(game, new Random());
         }
 
         private static void Run(Game game, Random random)
         {
             Game aGame = game;
-
-            aGame.add("Chet");
-            aGame.add("Pat");
-            aGame.add("Sue");
-
             Random rand = random;
 
             do
