@@ -59,7 +59,7 @@ namespace UglyTrivia
             inPenaltyBox[howManyPlayers()] = false;
 
             Print(playerName + " was added");
-            Print("They are player number " + players.Count);
+            Print("They are player number " + players2.Count);
             return true;
         }
 
@@ -70,7 +70,7 @@ namespace UglyTrivia
 
         public int howManyPlayers()
         {
-            return players.Count;
+            return players2.Count;
         }
 
         public void roll(int roll)
