@@ -168,15 +168,13 @@ namespace UglyTrivia
                             + " Gold Coins.");
 
                     bool winner = didPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    NextPlayer();
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    NextPlayer();
                     return true;
                 }
 
@@ -199,6 +197,12 @@ namespace UglyTrivia
 
                 return winner;
             }
+        }
+
+        private void NextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
         public bool wrongAnswer()
