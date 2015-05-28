@@ -88,7 +88,7 @@ namespace UglyTrivia
                     Print(players[currentPlayer]
                             + "'s new location is "
                             + places[currentPlayer]);
-                    Print("The category is " + currentCategory2());
+                    Print("The category is " + currentCategory());
                     askQuestion();
                 }
                 else
@@ -107,7 +107,7 @@ namespace UglyTrivia
                 Print(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
-                Print("The category is " + currentCategory2());
+                Print("The category is " + currentCategory());
                 askQuestion();
             }
 
@@ -115,35 +115,35 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory2() == QuestionCategory2.Pop.ToString())
+            if (currentCategory() == QuestionCategory2.Pop)
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory2.Science.ToString())
+            if (currentCategory() == QuestionCategory2.Science)
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory2.Sports.ToString())
+            if (currentCategory() == QuestionCategory2.Sports)
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory2.Rock.ToString())
+            if (currentCategory() == QuestionCategory2.Rock)
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
             }
         }
 
-        private String currentCategory2()
+        private QuestionCategory2 currentCategory()
         {
             QuestionCategory2 result = QuestionCategory2.Rock;
             if (places[currentPlayer] % 4 == 0) result = QuestionCategory2.Pop;
             if (places[currentPlayer] % 4 == 1) result = QuestionCategory2.Science;
             if (places[currentPlayer] % 4 == 2) result = QuestionCategory2.Sports;
-            return result.ToString();
+            return result;
         }
 
         public bool wasCorrectlyAnswered()
