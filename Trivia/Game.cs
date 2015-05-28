@@ -8,6 +8,10 @@ namespace UglyTrivia
 {
     public class Game
     {
+        private const string CATEGORY_POP = "Pop";
+        private const string CATEGORY_SCIENCE = "Science";
+        private const string CATEGORY_SPORTS = "Sports";
+        private const string CATEGORY_ROCK = "Rock";
 
 
         List<string> players = new List<string>();
@@ -117,22 +121,22 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory() == "Pop")
+            if (currentCategory() == CATEGORY_POP)
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Science")
+            if (currentCategory() == CATEGORY_SCIENCE)
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Sports")
+            if (currentCategory() == CATEGORY_SPORTS)
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Rock")
+            if (currentCategory() == CATEGORY_ROCK)
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -142,10 +146,10 @@ namespace UglyTrivia
 
         private String currentCategory()
         {
-            if (places[currentPlayer] % 4 == 0) return "Pop";
-            if (places[currentPlayer] % 4 == 1) return "Science";
-            if (places[currentPlayer] % 4 == 2) return "Sports";
-            return "Rock";
+            if (places[currentPlayer] % 4 == 0) return CATEGORY_POP;
+            if (places[currentPlayer] % 4 == 1) return CATEGORY_SCIENCE;
+            if (places[currentPlayer] % 4 == 2) return CATEGORY_SPORTS;
+            return CATEGORY_ROCK;
         }
 
         public bool wasCorrectlyAnswered()
