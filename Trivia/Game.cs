@@ -192,17 +192,10 @@ namespace UglyTrivia
                         + " Gold Coins.");
 
                 bool winner = didPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                NextPlayer();
 
                 return winner;
             }
-        }
-
-        private void NextPlayer()
-        {
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
         public bool wrongAnswer()
@@ -211,11 +204,16 @@ namespace UglyTrivia
             Print(players[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            NextPlayer();
             return true;
         }
 
+
+        private void NextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+        }
 
         private bool didPlayerWin()
         {
