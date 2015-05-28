@@ -146,6 +146,15 @@ namespace UglyTrivia
             return QuestionCategory.CATEGORY_ROCK;
         }
 
+        private String currentCategory2()
+        {
+            QuestionCategory2 result = QuestionCategory2.Rock;
+            if (places[currentPlayer] % 4 == 0) result = QuestionCategory2.Pop;
+            if (places[currentPlayer] % 4 == 1) result = QuestionCategory2.Science;
+            if (places[currentPlayer] % 4 == 2) result = QuestionCategory2.Sports;
+            return result.ToString();
+        }
+
         public bool wasCorrectlyAnswered()
         {
             bool canPlayerMove = !inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox;

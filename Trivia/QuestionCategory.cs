@@ -7,4 +7,12 @@ namespace UglyTrivia
         public const string CATEGORY_SPORTS = "Sports";
         public const string CATEGORY_ROCK = "Rock";
     }
+
+    public enum QuestionCategory2
+    {
+        Pop,
+        Science,
+        Sports,
+        Rock
+    }
 }
