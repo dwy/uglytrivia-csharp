@@ -115,34 +115,34 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory() == QuestionCategory2.Pop)
+            if (currentCategory() == QuestionCategory.Pop)
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory2.Science)
+            if (currentCategory() == QuestionCategory.Science)
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory2.Sports)
+            if (currentCategory() == QuestionCategory.Sports)
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory2.Rock)
+            if (currentCategory() == QuestionCategory.Rock)
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
             }
         }
 
-        private QuestionCategory2 currentCategory()
+        private QuestionCategory currentCategory()
         {
-            QuestionCategory2 result = QuestionCategory2.Rock;
-            if (places[currentPlayer] % 4 == 0) result = QuestionCategory2.Pop;
-            if (places[currentPlayer] % 4 == 1) result = QuestionCategory2.Science;
-            if (places[currentPlayer] % 4 == 2) result = QuestionCategory2.Sports;
+            QuestionCategory result = QuestionCategory.Rock;
+            if (places[currentPlayer] % 4 == 0) result = QuestionCategory.Pop;
+            if (places[currentPlayer] % 4 == 1) result = QuestionCategory.Science;
+            if (places[currentPlayer] % 4 == 2) result = QuestionCategory.Sports;
             return result;
         }
 

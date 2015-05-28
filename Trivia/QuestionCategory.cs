@@ -1,6 +1,6 @@
 namespace UglyTrivia
 {
-    public enum QuestionCategory2
+    public enum QuestionCategory
     {
         Pop,
         Science,
