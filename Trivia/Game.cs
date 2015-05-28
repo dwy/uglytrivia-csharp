@@ -8,12 +8,6 @@ namespace UglyTrivia
 {
     public class Game
     {
-        private const string CATEGORY_POP = "Pop";
-        private const string CATEGORY_SCIENCE = "Science";
-        private const string CATEGORY_SPORTS = "Sports";
-        private const string CATEGORY_ROCK = "Rock";
-
-
         List<string> players = new List<string>();
 
         int[] places = new int[6];
@@ -121,22 +115,22 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory() == CATEGORY_POP)
+            if (currentCategory() == QuestionCategory.CATEGORY_POP)
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory() == CATEGORY_SCIENCE)
+            if (currentCategory() == QuestionCategory.CATEGORY_SCIENCE)
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory() == CATEGORY_SPORTS)
+            if (currentCategory() == QuestionCategory.CATEGORY_SPORTS)
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory() == CATEGORY_ROCK)
+            if (currentCategory() == QuestionCategory.CATEGORY_ROCK)
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -146,10 +140,10 @@ namespace UglyTrivia
 
         private String currentCategory()
         {
-            if (places[currentPlayer] % 4 == 0) return CATEGORY_POP;
-            if (places[currentPlayer] % 4 == 1) return CATEGORY_SCIENCE;
-            if (places[currentPlayer] % 4 == 2) return CATEGORY_SPORTS;
-            return CATEGORY_ROCK;
+            if (places[currentPlayer] % 4 == 0) return QuestionCategory.CATEGORY_POP;
+            if (places[currentPlayer] % 4 == 1) return QuestionCategory.CATEGORY_SCIENCE;
+            if (places[currentPlayer] % 4 == 2) return QuestionCategory.CATEGORY_SPORTS;
+            return QuestionCategory.CATEGORY_ROCK;
         }
 
         public bool wasCorrectlyAnswered()
