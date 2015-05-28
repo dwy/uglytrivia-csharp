@@ -156,25 +156,13 @@ namespace UglyTrivia
 
         public bool wasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    return IncreasePurseAndCheckDidPlayerWin();
-                }
-                else
-                {
-                    NextPlayer();
-                    return true;
-                }
-
-
-
-            }
-            else
+            bool canPlayerMove = !inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox;
+            if (canPlayerMove)
             {
                 return IncreasePurseAndCheckDidPlayerWin();
             }
+            NextPlayer();
+            return true;
         }
 
         private bool IncreasePurseAndCheckDidPlayerWin()
