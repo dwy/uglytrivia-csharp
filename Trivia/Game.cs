@@ -160,17 +160,7 @@ namespace UglyTrivia
             {
                 if (isGettingOutOfPenaltyBox)
                 {
-                    Print("Answer was correct!!!!");
-                    purses[currentPlayer]++;
-                    Print(players[currentPlayer]
-                            + " now has "
-                            + purses[currentPlayer]
-                            + " Gold Coins.");
-
-                    bool winner = didPlayerWin();
-                    NextPlayer();
-
-                    return winner;
+                    return IncreasePurseAndCheckDidPlayerWin();
                 }
                 else
                 {
@@ -183,19 +173,23 @@ namespace UglyTrivia
             }
             else
             {
-
-                Print("Answer was corrent!!!!");
-                purses[currentPlayer]++;
-                Print(players[currentPlayer]
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
-
-                bool winner = didPlayerWin();
-                NextPlayer();
-
-                return winner;
+                return IncreasePurseAndCheckDidPlayerWin();
             }
+        }
+
+        private bool IncreasePurseAndCheckDidPlayerWin()
+        {
+            Print("Answer was correct!!!!");
+            purses[currentPlayer]++;
+            Print(players[currentPlayer]
+                  + " now has "
+                  + purses[currentPlayer]
+                  + " Gold Coins.");
+
+            bool winner = didPlayerWin();
+            NextPlayer();
+
+            return winner;
         }
 
         public bool wrongAnswer()
