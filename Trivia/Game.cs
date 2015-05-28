@@ -88,7 +88,7 @@ namespace UglyTrivia
                     Print(players[currentPlayer]
                             + "'s new location is "
                             + places[currentPlayer]);
-                    Print("The category is " + currentCategory());
+                    Print("The category is " + currentCategory2());
                     askQuestion();
                 }
                 else
@@ -107,7 +107,7 @@ namespace UglyTrivia
                 Print(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
-                Print("The category is " + currentCategory());
+                Print("The category is " + currentCategory2());
                 askQuestion();
             }
 
@@ -115,35 +115,26 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory() == QuestionCategory.CATEGORY_POP)
+            if (currentCategory2() == QuestionCategory.CATEGORY_POP)
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory.CATEGORY_SCIENCE)
+            if (currentCategory2() == QuestionCategory.CATEGORY_SCIENCE)
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory.CATEGORY_SPORTS)
+            if (currentCategory2() == QuestionCategory.CATEGORY_SPORTS)
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory() == QuestionCategory.CATEGORY_ROCK)
+            if (currentCategory2() == QuestionCategory.CATEGORY_ROCK)
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
             }
-        }
-
-
-        private String currentCategory()
-        {
-            if (places[currentPlayer] % 4 == 0) return QuestionCategory.CATEGORY_POP;
-            if (places[currentPlayer] % 4 == 1) return QuestionCategory.CATEGORY_SCIENCE;
-            if (places[currentPlayer] % 4 == 2) return QuestionCategory.CATEGORY_SPORTS;
-            return QuestionCategory.CATEGORY_ROCK;
         }
 
         private String currentCategory2()
