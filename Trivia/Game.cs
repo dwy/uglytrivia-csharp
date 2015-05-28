@@ -115,22 +115,22 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory2() == QuestionCategory.CATEGORY_POP)
+            if (currentCategory2() == QuestionCategory2.Pop.ToString())
             {
                 Print(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory.CATEGORY_SCIENCE)
+            if (currentCategory2() == QuestionCategory2.Science.ToString())
             {
                 Print(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory.CATEGORY_SPORTS)
+            if (currentCategory2() == QuestionCategory2.Sports.ToString())
             {
                 Print(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory2() == QuestionCategory.CATEGORY_ROCK)
+            if (currentCategory2() == QuestionCategory2.Rock.ToString())
             {
                 Print(rockQuestions.First());
                 rockQuestions.RemoveFirst();
