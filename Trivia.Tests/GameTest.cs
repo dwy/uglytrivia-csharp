@@ -11,8 +11,8 @@ namespace Trivia.Tests
         public void Test1()
         {
             var outputStringWriter = new StringWriter {NewLine = "\n"};
-            var aGame = new Game(outputStringWriter);
-            aGame.Add("Chet");
+            var aGame = new Game(outputStringWriter, new Random());
+            aGame.AddPlayer("Chet");
             aGame.WrongAnswer();
             
             Assert.AreEqual("Chet was added\n" +
@@ -26,14 +26,13 @@ namespace Trivia.Tests
         public void GameRunner1()
         {
             var outputStringWriter = new StringWriter {NewLine = "\n"};
-            var aGame = new Game(outputStringWriter);
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
-
             var rand = new Random(1);
+            var aGame = new Game(outputStringWriter, rand);
+            aGame.AddPlayer("Chet");
+            aGame.AddPlayer("Pat");
+            aGame.AddPlayer("Sue");
 
-            GameRunner.Run(aGame, rand);
+            GameRunner.Run(aGame);
 
             Assert.AreEqual("Chet was added\n" +
                             "They are player number 1\n" +
@@ -160,13 +159,12 @@ namespace Trivia.Tests
         public void GameRunner2()
         {
             var outputStringWriter = new StringWriter {NewLine = "\n"};
-            var aGame = new Game(outputStringWriter);
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-
             var rand = new Random(3);
+            var aGame = new Game(outputStringWriter, rand);
+            aGame.AddPlayer("Chet");
+            aGame.AddPlayer("Pat");
 
-            GameRunner.Run(aGame, rand);
+            GameRunner.Run(aGame);
 
             Assert.AreEqual("Chet was added\n" +
                             "They are player number 1\n" +

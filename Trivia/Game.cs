@@ -1,112 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Trivia
 {
     public class Game
     {
-        PlayerPool playerPool = new PlayerPool();
+        private readonly PlayerPool playerPool = new PlayerPool();
+        private readonly Screen screen;
+        private readonly QuestionPool questionPool;
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        private readonly Random random;
 
-        private readonly TextWriter outputWriter;
-
-        public Game(TextWriter @out)
+        public Game(TextWriter @out, Random random = null)
         {
-            outputWriter = @out;
-
-            for (int i = 0; i < 50; i++)
-            {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
-            }
+            this.random = random;
+            screen = new Screen(@out);
+            questionPool = new QuestionPool();
         }
 
-        public String CreateRockQuestion(int index)
-        {
-            return "Rock Question " + index;
-        }
-
-        public bool Add(String playerName)
+        public void AddPlayer(string playerName)
         {
             var player = new Player(playerName);
             playerPool.AddPlayer(player);
 
-            outputWriter.WriteLine(playerName + " was added");
-            outputWriter.WriteLine("They are player number " + playerPool.HowManyPlayers());
-            return true;
+            screen.PrintPlayerAdded(playerName, playerPool.HowManyPlayers());
         }
 
-        public void Roll(int roll)
+        public void Roll()
         {
+            int roll = RollDice();
             var currentPlayer = playerPool.CurrentPlayer;
-            outputWriter.WriteLine(currentPlayer.Name + " is the current player");
-            outputWriter.WriteLine("They have rolled a " + roll);
+            screen.PrintPlayerRoll(roll, currentPlayer.Name);
 
             if (currentPlayer.InPenaltyBox)
             {
-                currentPlayer.SetGetOutOfPenaltyBox(roll);
-                if (roll % 2 != 0)
-                {
-                    outputWriter.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
-                    AdvancePlayerAndAskQuestion(roll);
-                }
-                else
-                {
-                    outputWriter.WriteLine(currentPlayer.Name + " is not getting out of the penalty box");
-                }
-            }
-            else
-            {
-                AdvancePlayerAndAskQuestion(roll);
+                screen.PrintPlayerGettingOutOfPenaltyBox(currentPlayer, roll);
+                // TODO never getting out of the penalty box, player can still play
             }
 
+            if (currentPlayer.CanAdvance())
+            {
+                AdvancePlayer(roll);
+                AskQuestion();
+            }
         }
 
-        private void AdvancePlayerAndAskQuestion(int roll)
+        private void AdvancePlayer(int roll)
         {
-            var currentPlayer = playerPool.CurrentPlayer;
+            Player currentPlayer = playerPool.CurrentPlayer;
             currentPlayer.AddPlace(roll);
 
-            outputWriter.WriteLine(currentPlayer.Name + "'s new location is " + currentPlayer.Place);
-            outputWriter.WriteLine("The category is " + CurrentCategory());
-            AskQuestion();
+            screen.PrintPlayerMoved(currentPlayer.Name, currentPlayer.Place);
+            screen.PrintCategory(CurrentCategory().ToString());
+        }
+
+        private int RollDice()
+        {
+            return random.Next(5) + 1;
         }
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == QuestionCategory.Pop)
-            {
-                outputWriter.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == QuestionCategory.Science)
-            {
-                outputWriter.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == QuestionCategory.Sports)
-            {
-                outputWriter.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == QuestionCategory.Rock)
-            {
-                outputWriter.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
+            string question = questionPool.GetQuestion(CurrentCategory());
+            screen.PrintQuestion(question);
         }
 
         private QuestionCategory CurrentCategory()
         {
-            var place = playerPool.CurrentPlayer.Place;
+            int place = playerPool.CurrentPlayer.Place;
             
             var result = QuestionCategory.Rock;
             if (place % 4 == 0) result = QuestionCategory.Pop;
@@ -115,38 +76,52 @@ namespace Trivia
             return result;
         }
 
-        public bool WasCorrectlyAnswered()
+        private void WasCorrectlyAnswered()
         {
             var currentPlayer = playerPool.CurrentPlayer;
-            if (currentPlayer.InPenaltyBox && !currentPlayer.IsGettingOUtOfPenaltyBox)
+            if (currentPlayer.CanAdvance())
             {
-                playerPool.NextPlayer();
-                return true;
+                AddPursesAndDidPlayerWin();
             }
-            return AddPursesAndDidPlayerWin();
         }
 
-        private bool AddPursesAndDidPlayerWin()
+        private void AddPursesAndDidPlayerWin()
         {
-            outputWriter.WriteLine("Answer was correct!!!!");
+            screen.PrintCorrectAnswer();
             var currentPlayer = playerPool.CurrentPlayer;
             currentPlayer.AddPurse();
-            outputWriter.WriteLine(currentPlayer.Name + " now has " + currentPlayer.Purse + " Gold Coins.");
-
-            bool notWinner = !currentPlayer.DidPlayerWin();
-            playerPool.NextPlayer();
-
-            return notWinner;
+            screen.PrintPlayerPurse(currentPlayer.Name, currentPlayer.Purse);
         }
 
-        public bool WrongAnswer()
+        public void WrongAnswer()
         {
-            outputWriter.WriteLine("Question was incorrectly answered");
-            outputWriter.WriteLine(playerPool.CurrentPlayer.Name + " was sent to the penalty box");
-           playerPool.CurrentPlayer.PutInPenaltyBox();
+            screen.PrintPlayerWrongAnswer(playerPool.CurrentPlayer.Name);
+            playerPool.CurrentPlayer.PutInPenaltyBox();
+        }
 
+        public void NextPlayer()
+        {
             playerPool.NextPlayer();
-            return true;
+        }
+
+        public void Play()
+        {
+            if (AnswerWasWrong())
+            {
+                WrongAnswer();
+                return;
+            }
+            WasCorrectlyAnswered();
+        }
+
+        private bool AnswerWasWrong()
+        {
+            return random.Next(9) == 7;
+        }
+
+        public bool DidLastPlayerWin()
+        {
+            return playerPool.LastPlayer.DidPlayerWin();
         }
     }
 }

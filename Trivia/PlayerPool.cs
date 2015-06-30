@@ -6,10 +6,17 @@ namespace Trivia
     {
         private readonly List<Player> players;
         private int currentPlayerIndex;
+        private int lastPlayerIndex;
+
 
         public Player CurrentPlayer
         {
             get { return players[currentPlayerIndex]; }
+        }        
+        
+        public Player LastPlayer
+        {
+            get { return players[lastPlayerIndex]; }
         }
 
         public PlayerPool()
@@ -25,6 +32,7 @@ namespace Trivia
         
         public void NextPlayer()
         {
+            lastPlayerIndex = currentPlayerIndex;
             currentPlayerIndex++;
             if (currentPlayerIndex == HowManyPlayers())
             {

@@ -6,7 +6,7 @@
         public int Place { get; set; }
         public int Purse { get; set; }
         public bool InPenaltyBox { get; set; }
-        public bool IsGettingOUtOfPenaltyBox { get; set; }
+        private bool IsGettingOUtOfPenaltyBox { get; set; }
 
         public Player(string name)
         {
@@ -28,14 +28,20 @@
             InPenaltyBox = true;
         }
 
-        public void SetGetOutOfPenaltyBox(int roll)
+        public bool CanGetOutOfPenaltyBox(int roll)
         {
             IsGettingOUtOfPenaltyBox = roll % 2 != 0;
+            return IsGettingOUtOfPenaltyBox;
         }
 
         public bool DidPlayerWin()
         {
             return Purse == 6;
+        }
+
+        public bool CanAdvance()
+        {
+            return !InPenaltyBox || IsGettingOUtOfPenaltyBox;
         }
     }
 }
