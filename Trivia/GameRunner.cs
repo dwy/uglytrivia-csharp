@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UglyTrivia;
 
 namespace Trivia
 {
@@ -14,14 +9,14 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            var game = new Game(Console.Out);
-            game.add("Chet");
-            game.add("Pat");
-            game.add("Sue");
+            var aGame = new Game(Console.Out);
+            aGame.Add("Chet");
+            aGame.Add("Pat");
+            aGame.Add("Sue");
 
             var random = new Random();
 
-            Run(game, random);
+            Run(aGame, random);
             Console.ReadLine();
         }
 
@@ -29,15 +24,15 @@ namespace Trivia
         {
             do
             {
-                game.roll(random.Next(5) + 1);
+                game.Roll(random.Next(5) + 1);
 
                 if (random.Next(9) == 7)
                 {
-                    notAWinner = game.wrongAnswer();
+                    notAWinner = game.WrongAnswer();
                 }
                 else
                 {
-                    notAWinner = game.wasCorrectlyAnswered();
+                    notAWinner = game.WasCorrectlyAnswered();
                 }
             } while (notAWinner);
         }
